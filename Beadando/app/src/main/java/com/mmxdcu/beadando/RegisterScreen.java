@@ -10,6 +10,8 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -80,8 +82,6 @@ public class RegisterScreen extends AppCompatActivity {
     }
 
     public void onClickLogin(View v){
-        Intent intent = new Intent(RegisterScreen.this, LoginScreen.class);
-        startActivity(intent);
         finish();
     }
 
@@ -92,15 +92,22 @@ public class RegisterScreen extends AppCompatActivity {
         String password = reg_password.getText().toString();
 
         if(TextUtils.isEmpty(nickname) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-            Toast.makeText(RegisterScreen.this, "All fields must not be empty!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterScreen.this, R.string.reg_field_error, Toast.LENGTH_SHORT).show();
+        } else if (nickname.length() > 20) {
+            Toast.makeText(RegisterScreen.this, R.string.reg_nickname_error, Toast.LENGTH_SHORT).show();
         } else if (password.length() < 8){
-            Toast.makeText(RegisterScreen.this, "Password must be at least 8 characters long!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterScreen.this, R.string.reg_password_error, Toast.LENGTH_SHORT).show();
         } else {
             registerUser(nickname, email, password);
         }
     }
 
     private void registerUser(String nickname, String email, String password){
+        Animation logo_animation = AnimationUtils.loadAnimation(this, R.anim.logo_animation);
+        reg_logo.startAnimation(logo_animation);
+        reg_register_button.setClickable(false);
+        reg_register_button.setAlpha(.5f);
+
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -109,14 +116,10 @@ public class RegisterScreen extends AppCompatActivity {
                     assert f_user != null;
                     String userID = f_user.getUid();
 
-                    reference = FirebaseDatabase.getInstance().getReference("/Users").child(userID);
+                    reference = FirebaseDatabase.getInstance("https://spriralchat-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("Users").child(userID);
+                    User user = new User(f_user.getUid(), nickname, "default");
 
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("id", userID);
-                    hashMap.put("nickname", nickname);
-                    hashMap.put("imageURL", "default");
-
-                    reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    reference.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Log.println(Log.DEBUG, "test", task.toString());
@@ -132,7 +135,10 @@ public class RegisterScreen extends AppCompatActivity {
                         }
                     });
                 } else {
-                    Toast.makeText(RegisterScreen.this, "You can't register with this email or password!", Toast.LENGTH_SHORT).show();
+                    reg_logo.clearAnimation();
+                    reg_register_button.setClickable(true);
+                    reg_register_button.setAlpha(1f);
+                    Toast.makeText(RegisterScreen.this, R.string.reg_email_error, Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#542280"
+    android:background="@color/purple"
     android:orientation="vertical"
     android:outlineSpotShadowColor="#000000"
     tools:context=".MainScreen">
@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#823BBD"
+        android:background="@color/light_purple"
         android:orientation="horizontal">
 
         <TextView
@@ -23,8 +23,8 @@
             android:layout_weight="1"
             android:fontFamily="@font/aclonica"
             android:paddingHorizontal="10dp"
-            android:text="Messages"
-            android:textColor="#CCCCCC"
+            android:text="@string/title"
+            android:textColor="@color/text_color"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -35,7 +35,9 @@
             android:layout_gravity="center_vertical"
             android:layout_marginHorizontal="5dp"
             android:layout_marginVertical="5dp"
-            android:src="@drawable/logo" />
+            android:onClick="onClickProfileImage"
+            android:src="@mipmap/ic_launcher"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
@@ -45,60 +47,31 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:background="@color/dark_purple"
+            app:tabTextAppearance="@style/MyCustomTabText"
+            app:tabIndicatorColor="@color/text_color"
+            app:tabTextColor="@color/text_color">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/message_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:padding="5dp"
-                android:paddingStart="10dp"
-                android:src="@drawable/ic_launcher_background" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chats" />
 
-            <TextView
-                android:id="@+id/message_title"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:fontFamily="@font/aclonica"
-                android:gravity="left|center_vertical"
-                android:paddingHorizontal="10dp"
-                android:text="Messages"
-                android:textColor="#CCCCCC"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/map" />
+        </com.google.android.material.tabs.TabLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="bottom|center_horizontal"
-        android:background="#823BBD"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:contentDescription="Contacts"
-            app:srcCompat="@drawable/contacts"
-            app:tint="#CCCCCC" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:contentDescription="Map"
-            app:srcCompat="@drawable/map"
-            app:tint="#CCCCCC" />
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 

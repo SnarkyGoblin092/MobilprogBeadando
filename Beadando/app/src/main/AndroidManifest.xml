@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Beadando">
         <activity
+            android:name=".SettingsScreen"
+            android:exported="true" />
+        <activity
             android:name=".LoginScreen"
             android:exported="true" />
         <activity

@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Beadando</string>
+    <string name="title">SpiralChat</string>
+    <string name="logo">Logó</string>
+    <string name="register">Regisztráció</string>
+    <string name="login">Belépés</string>
+    <string name="logout">Kijelentkezés</string>
+    <string name="email">Email</string>
+    <string name="password">Jelszó</string>
+    <string name="sh_password">Jelszó mutatása</string>
+    <string name="change_password">Jelszó módosítása</string>
+    <string name="change_background">Háttérkép megváltoztatása</string>
+    <string name="nickname">Becenév</string>
+    <string name="chats">Üzenetek</string>
+    <string name="map">Térkép</string>
+
+    <string name="reg_field_error">Minden mezőt ki kell tölteni!</string>
+    <string name="reg_nickname_error">A beceneved nem haladhatja meg a 20 karaktert!</string>
+    <string name="reg_password_error">A jelszó legalább 8 karakterből kell álljon!</string>
+    <string name="reg_email_error">Hibás vagy már létező email cím!</string>
+    <string name="login_error">Sikertelen bejelentkezés!</string>
 </resources>

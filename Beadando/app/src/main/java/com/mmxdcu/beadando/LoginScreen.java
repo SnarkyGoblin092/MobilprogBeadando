@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.sax.StartElementListener;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -70,7 +70,6 @@ public class LoginScreen extends AppCompatActivity {
         Intent intent = new Intent(LoginScreen.this, RegisterScreen.class);
         intent.putExtra("email", login_email.getText().toString());
         startActivity(intent);
-        finish();
     }
 
     public void onClickLogin(View v){
@@ -78,8 +77,13 @@ public class LoginScreen extends AppCompatActivity {
         String password = login_password.getText().toString();
 
         if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-            Toast.makeText(LoginScreen.this, "All fields must not be empty!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginScreen.this, R.string.reg_field_error, Toast.LENGTH_SHORT).show();
         } else {
+            Animation logo_animation = AnimationUtils.loadAnimation(this, R.anim.logo_animation);
+            login_logo.startAnimation(logo_animation);
+            login_login_button.setClickable(false);
+            login_login_button.setAlpha(.5f);
+
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -89,7 +93,10 @@ public class LoginScreen extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(LoginScreen.this, "Authentication failed!", Toast.LENGTH_SHORT).show();
+                        login_logo.clearAnimation();
+                        login_login_button.setClickable(true);
+                        login_login_button.setAlpha(1f);
+                        Toast.makeText(LoginScreen.this, R.string.login_error, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
