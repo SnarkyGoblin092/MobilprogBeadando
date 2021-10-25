@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Beadando</string>
+    <string name="title">SpiralChat</string>
+    <string name="logo">Logo</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sh_password">Show Password</string>
+    <string name="change_password">Change password</string>
+    <string name="change_background">Change background</string>
+    <string name="nickname">Nickname</string>
+    <string name="chats">Chats</string>
+    <string name="map">Map</string>
+
+    <string name="reg_field_error">All field must not be empty!</string>
+    <string name="reg_nickname_error">Maximum nickname length is 20!</string>
+    <string name="reg_password_error">Password must be at least 8 characters long!</string>
+    <string name="reg_email_error">Wrong or already registered email address!</string>
+    <string name="login_error">Authentication failed!</string>
+</resources>
